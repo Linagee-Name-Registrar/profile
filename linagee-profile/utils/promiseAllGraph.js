@@ -1,21 +1,17 @@
-const { ethers } = require("ethers");
-const dotenv = require("dotenv");
-const { LNR } = require("@linagee/lnr-ethers");
+"use client"
 
-dotenv.config();
+import { ethers } from "ethers";
+import { LNR } from "@linagee/lnr-ethers";
 
-const infuraApiKey = process.env.INFURA_API_KEY;
-const walletAddress = process.env.ADDRESS;
-const infuraUrl = `https://mainnet.infura.io/v3/${infuraApiKey}`;
+const infuraUrl = `https://mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`;
 const provider = new ethers.providers.JsonRpcProvider(infuraUrl);
 const lnr = new LNR(ethers, provider);
 
-async function main() {
-    const names = await getAllNames(process.env.ADDRESS2);
-    console.log(names);
+export async function getNames(walletAddress) {
+    const names = await getAllNames(walletAddress);
+    return(names)
 }
 
-main();
 
 async function getAllNames(nameAddress) {
     const address = await resolveOrReturn(nameAddress);
@@ -137,7 +133,7 @@ async function getUnwrappedNames(address) {
 }
 
 async function resolveOrReturn(nameAddress){
-    var name = false;
+    let name = false;
     if(ethers.utils.isAddress(nameAddress) == true){
         //console.log("true address", nameAddress)
         return(nameAddress)
@@ -145,13 +141,13 @@ async function resolveOrReturn(nameAddress){
     else{
         //console.log("why in here")
             try{
-                var tempname = await lnr.resolveName(nameAddress);
+                const tempname = await lnr.resolveName(nameAddress);
                 //console.log(tempname);
                 if(ethers.utils.isAddress(tempname)){
-                    var name = tempname;
+                    name = tempname;
                 }
             } catch(error){
-                //console.log(error)
+                console.log(error)
             }
 
     //console.log("returning", name)
@@ -163,7 +159,7 @@ async function resolveOrReturn(nameAddress){
 
 async function theGraph(address, offset){
 
-    const resp = await fetch(process.env.GRAPH_URL, {
+    const resp = await fetch(process.env.NEXT_PUBLIC_GRAPH_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

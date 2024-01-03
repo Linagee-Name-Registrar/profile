@@ -132,7 +132,7 @@ async function getUnwrappedNames(address) {
     return tokenids;
 }
 
-async function resolveOrReturn(nameAddress){
+export async function resolveOrReturn(nameAddress){
     let name = false;
     if(ethers.utils.isAddress(nameAddress) == true){
         //console.log("true address", nameAddress)

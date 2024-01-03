@@ -17,6 +17,10 @@ export async function fetchNFTs(walletAddress, page) {
 
 async function getNFTsNoPages(userAddress) {
   const paddedUserAddress = ethers.utils.hexZeroPad(ethers.utils.getAddress(userAddress), 32);
+  console.log("paddedUserAddress", paddedUserAddress)
+  if(parseInt(paddedUserAddress) == "0x0000000000000000000000000000000000000000000000000000000000000000"){
+    return [];
+  }
 
 
   const transferTopic = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";

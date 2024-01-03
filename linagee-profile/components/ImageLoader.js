@@ -2,10 +2,28 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaImage } from "react-icons/fa";
+import AmbientCard from "@/components/AmbientCard";
+import { getMediaType } from '@/utils/utils';
 
-function ImageLoader({ src }) {
+
+function ImageLoader({ src, isDrawerOpen, attributes }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [srcType, setSrcType] = useState('unknown');
+
+
+  const loadType = async () => {
+    const type = await getMediaType(src);
+    console.log(src, type)
+    if(type !== "unknown"){
+      setSrcType(type);
+
+    }
+
+  }
+
+
+
 
   const loadImage = () => {
     const image = new Image();
@@ -24,14 +42,17 @@ function ImageLoader({ src }) {
   };
 
   useEffect(() => {
+    loadType();
     return loadImage();
   }, [src]);
 
   return (
-    <div className="w-full h-full items-center justify-center">
+    <div className="m-0 items-center justify-center rounded-md  p-5 w-full h-full">
       {!isImageLoaded && hasError && <FaImage className="w-50 h-50 m-auto" />}
       {!isImageLoaded && !hasError && <div className="flex-1 animated-pulse" />}
-      {isImageLoaded && <img src={src} alt="Loaded"/>}
+      {isImageLoaded && srcType !== "unknown" && (
+        <AmbientCard src={src} type={srcType} isDrawerOpen={isDrawerOpen} attributes={attributes} alt="Loaded"/>
+      )}
     </div>
   );
 };

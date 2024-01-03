@@ -23,3 +23,24 @@ export async function fetchNftData(tokenuri) {
         return null
     }
 }
+
+
+export async function getMediaType(src) {
+    try {
+        const response = await fetch(src, { method: 'HEAD' });
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const contentType = response.headers.get('content-type').toLowerCase();
+
+        if (contentType.includes('video')) return 'video';
+        if (contentType.includes('gif')) return 'gif';
+        if (contentType.includes('image')) return 'image';
+
+        return 'unknown';
+    } catch (error) {
+        console.error('Error fetching media type:', error);
+        return 'unknown';
+    }
+}

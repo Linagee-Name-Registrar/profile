@@ -6,20 +6,29 @@ import GridGallery from '@/components/GridGallery'
 import { useRouter } from 'next/router'
 import { useLnrGetAddress } from "@linagee/lnr-ethers-react";
 import {fetchNFTs} from '@/utils/promiseAllNfts'
+import { resolveOrReturn } from '@/utils/promiseAllGraph';
 
 export default function Me({ params }) {
   const [nfts, setNfts] = useState([])
   const [page, setPage] = useState(1)
   const [loadingMore, setLoadingMore] = useState(false)
+  const [address, setAddress] = useState()
+  const [name, setName] = useState()
 
-  var name = params.me;
-  if (!name.endsWith('.og')) {
-    name += '.og';
-  }
-  const { address, error, hasError, loading } = useLnrGetAddress(name);
+
+
 
   const callNFTs = async () => {
-    if (address) {
+    if (params.me) {
+      const address = await resolveOrReturn(params.me)
+      if(address !== false){
+        if((params.me).length < 44 && !(params.me).includes("0x") && !(params.me).endsWith(".og")){
+          setName(params.me + ".og")
+        }
+        if((params.me).length < 44 && !(params.me).includes("0x") && (params.me).endsWith(".og")){
+          setName(params.me)
+        }
+        setAddress(params.me)
       const nftsReturned = await fetchNFTs(address, page);
       console.log("detailed", nftsReturned)
       if (nftsReturned && nftsReturned.length > 0) {
@@ -27,11 +36,13 @@ export default function Me({ params }) {
       }
       setLoadingMore(false)
     }
+  }
   };
 
   useEffect(() => {
+    setNfts([])
     callNFTs();
-  }, [address, page]);
+  }, [name, page]);
 
   const handleLoadMore = () => {
     setLoadingMore(true)

@@ -13,13 +13,13 @@ export async function fetchNftData(tokenuri) {
                 console.error("Error parsing JSON:", parseError);
             }
 
-            //console.log(`HTTP error! status: ${res.status}`, res.status, errorData, res);
+            //// console.log(`HTTP error! status: ${res.status}`, res.status, errorData, res);
         }
 
         let jsonResponse = await res.json();
         return jsonResponse;
     } catch (error) {
-        console.log("Error fetching metadata", tokenuri, error);
+        // console.log("Error fetching metadata", tokenuri, error);
         return null
     }
 }
@@ -43,4 +43,28 @@ export async function getMediaType(src) {
         console.error('Error fetching media type:', error);
         return 'unknown';
     }
+}
+
+
+export async function fetchMetadata(uri){
+    try {
+            const formattedUri = uri.startsWith("ipfs://")
+                ? uri.replace("ipfs://", "https://ipfs.io/ipfs/")
+                : uri;
+    
+            const metadataReturned = await fetchNftData(formattedUri);
+            let image = metadataReturned?.image;
+    
+            if (image && image.startsWith("ipfs://")) {
+                image = image.replace("ipfs://", "https://ipfs.io/ipfs/")}
+            return({ ...metadataReturned, image: image }); 
+    }catch (error) {
+            return({});
+        }
+    }
+
+export async function fetchDataAndType(uri){
+    const md = await fetchMetadata(uri)
+    const type = await getMediaType(md.image)
+    return({md, type})
 }

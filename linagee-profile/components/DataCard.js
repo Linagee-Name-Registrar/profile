@@ -2,42 +2,12 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { fetchNftData } from '@/utils/utils';
-import ImageLoader from '@/components/ImageLoader';
+import ImageCardV2 from '@/components/ImageLoader';
 import { PiSealQuestion } from "react-icons/pi";
 import AttributeGallery from '@/components/AttributeGallery';
 
-function ImageCard({props}) {
-    const [metadata, setMetadata] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [detailed, setDetailed] = useState(false);
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+function ImageCard({props, key}) {
 
-    const callMetadata = async (uri) => {
-        try {
-            const formattedUri = uri.startsWith("ipfs://")
-                ? uri.replace("ipfs://", "https://ipfs.io/ipfs/")
-                : uri;
-    
-            const metadataReturned = await fetchNftData(formattedUri);
-            let image = metadataReturned?.image;
-    
-            if (image && image.startsWith("ipfs://")) {
-                image = image.replace("ipfs://", "https://ipfs.io/ipfs/")}
-            setLoading(false);
-            setMetadata({ ...metadataReturned, image: image }); 
-    }catch (error) {
-            // console.log("error ", error);
-            setLoading(false);
-            setMetadata({});
-        }
-    }
-
-    useEffect(() => {
-        if(props.tokenUri){
-            callMetadata(props.tokenUri);
-        }
-        
-    }, [props.tokenUri]);
     return(
         
 
@@ -49,7 +19,7 @@ function ImageCard({props}) {
                     <Suspense >
                     {/*<Suspense fallback={<LoadingIndicator width={12} height={12} className={"w-full flex h-[20vh] justify-center items-center"}/>}>*/}
                         <div className={"w-full hover:scale-105 ease-in duration-200 cursor-pointer p-5"} onClick={()=>setIsDrawerOpen(!isDrawerOpen)} >
-                            <ImageLoader attributes={metadata?.attributes} src={metadata?.image} isDrawerOpen={isDrawerOpen}/>
+                        <ImageCardV2 key={key} props={props} />
                         </div>
                     </Suspense>
 

@@ -24,8 +24,8 @@ async function getAllNames(nameAddress) {
         getWrappedNames(address),
     ]);
 
-    console.log(unwrapped);
-    console.log(wrapped);
+    // console.log(unwrapped);
+    // console.log(wrapped);
 
     return unwrapped.concat(wrapped);
 }
@@ -58,7 +58,7 @@ async function handleWrappedToken(address, contract, index) {
 
     try {
         curName = (await lnr.bytes32ToString(curBytes)).toString();
-        console.log(curName, "cyrr");
+        // console.log(curName, "cyrr");
     } catch (e) {
         // handle the exception
     }
@@ -135,22 +135,22 @@ async function getUnwrappedNames(address) {
 export async function resolveOrReturn(nameAddress){
     let name = false;
     if(ethers.utils.isAddress(nameAddress) == true){
-        //console.log("true address", nameAddress)
+        //// console.log("true address", nameAddress)
         return(nameAddress)
     }
     else{
-        //console.log("why in here")
+        //// console.log("why in here")
             try{
                 const tempname = await lnr.resolveName(nameAddress);
-                //console.log(tempname);
+                //// console.log(tempname);
                 if(ethers.utils.isAddress(tempname)){
                     name = tempname;
                 }
             } catch(error){
-                console.log(error)
+                // console.log(error)
             }
 
-    //console.log("returning", name)
+    //// console.log("returning", name)
     return(name)
 };
 }
@@ -186,19 +186,19 @@ async function theGraph(address, offset){
     var offset = 0;
     for ( let i = 0; i>=0; i++) {
         var tokens = await theGraph(address, offset);
-        console.log("tokens", tokens)
-        console.log(i*100)
+        // console.log("tokens", tokens)
+        // console.log(i*100)
         if(tokens && tokens.errors == undefined){
             var resp = tokens['data']['domains'] 
             if(resp.length < 1){
                 return(gdata)
             }
-            console.log(resp)
-            console.log('resppp', resp.slice(-1)[0].registerIndex)
+            // console.log(resp)
+            // console.log('resppp', resp.slice(-1)[0].registerIndex)
             var offset = resp.slice(-1)[0].registerIndex
-            console.log(offset)
+            // console.log(offset)
             gdata.push(...resp);
-           //console.log(gdata)
+           //// console.log(gdata)
         } else{
             return(gdata)
         }

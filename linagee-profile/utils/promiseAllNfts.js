@@ -17,7 +17,7 @@ export async function fetchNFTs(walletAddress, page) {
 
 async function getNFTsNoPages(userAddress) {
   const paddedUserAddress = ethers.utils.hexZeroPad(ethers.utils.getAddress(userAddress), 32);
-  console.log("paddedUserAddress", paddedUserAddress)
+  // console.log("paddedUserAddress", paddedUserAddress)
   if(parseInt(paddedUserAddress) == "0x0000000000000000000000000000000000000000000000000000000000000000"){
     return [];
   }
@@ -52,14 +52,14 @@ async function getNFTsNoPages(userAddress) {
   const uniqueNFTs = findUniqueNFTs(allLogs);
   const formattedNFTs = formatResult(uniqueNFTs);
 
-  console.log(`Unique NFTs owned by address ${userAddress}:`);
-  console.log(formattedNFTs);
+  // console.log(`Unique NFTs owned by address ${userAddress}:`);
+  // console.log(formattedNFTs);
   return formattedNFTs;
 }
 
 
 async function getNFTs(userAddress, page) {
-  console.log("arguments", userAddress, page)
+  // console.log("arguments", userAddress, page)
   const blocksPerPage = 100000;
   let startBlock, endBlock;
 
@@ -106,7 +106,7 @@ async function getNFTs(userAddress, page) {
       provider.getLogs(filterFrom),
     ]);
 
-    console.log("lengths to from", logsTo.length, logsFrom.length)
+    // console.log("lengths to from", logsTo.length, logsFrom.length)
 
     allLogs.push(...logsTo, ...logsFrom);
 
@@ -120,8 +120,8 @@ async function getNFTs(userAddress, page) {
   const uniqueNFTs = findUniqueNFTs(allLogs);
   const formattedNFTs = formatResult(uniqueNFTs);
 
-  console.log(`Unique NFTs owned by address ${userAddress} (Page ${page}):`);
-  console.log(formattedNFTs);
+  // console.log(`Unique NFTs owned by address ${userAddress} (Page ${page}):`);
+  // console.log(formattedNFTs);
   return formattedNFTs;
 }
 

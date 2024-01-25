@@ -18,11 +18,11 @@ export default function ThemeButton() {
 
         if (currentTheme === "dark") {
             return (
-                <PiSunDimFill className="w-5 h-5 text-yellow-400 hover:text-yellow-700 hover:scale-105 transition duration-200" role="button" onClick={() => setTheme('light')}/>
+                <PiSunDimFill className="w-5 h-5 text-yellow-400 hover:text-yellow-700 hover:scale-110 transition duration-200" role="button" onClick={() => setTheme('light')}/>
             )
         } else {
             return (
-                <BiSolidMoon className="w-5 h-5 text-slate-700 hover:text-slate-500 hover:scale-105 transition duration-200" role="button" onClick={() => setTheme('dark')}/>
+                <BiSolidMoon className="w-5 h-5 text-slate-700 hover:text-slate-500 hover:scale-110 transition duration-200" role="button" onClick={() => setTheme('dark')}/>
             )
         }
     };

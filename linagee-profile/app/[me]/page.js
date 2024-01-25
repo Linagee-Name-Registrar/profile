@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useLnrGetAddress } from "@linagee/lnr-ethers-react";
 import {fetchNFTs} from '@/utils/promiseAllNfts'
 import { resolveOrReturn } from '@/utils/promiseAllGraph';
+import { removeDuplicates } from '@/utils/utils';
 
 export default function Me({ params }) {
   const [nfts, setNfts] = useState([])
@@ -32,7 +33,8 @@ export default function Me({ params }) {
       const nftsReturned = await fetchNFTs(a, page);
       // console.log("detailed", nftsReturned)
       if (nftsReturned && nftsReturned.length > 0) {
-        setNfts(prevNfts => [...prevNfts, ...nftsReturned])
+        var n = [...nfts, ...nftsReturned]
+        setNfts(removeDuplicates(n))
       }
       setLoadingMore(false)
     }
@@ -52,8 +54,8 @@ export default function Me({ params }) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-10 pt-5">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-6xl font-bold text-center text-gray-600 dark:text-white">{name}</h1>
-        <p className="mt-3 text-center text-gray-500 text-sm dark:text-gray-400 mb-5">{address}</p>
+        <h1 className="text-6xl  text-center text-gray-700 dark:text-white">{name}</h1>
+        <p className="mt-3 text-center text-gray-600 text-sm dark:text-gray-400 mb-5">{address}</p>
       </div>
 
       <GridGallery props={nfts} />

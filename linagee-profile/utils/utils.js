@@ -68,3 +68,16 @@ export async function fetchDataAndType(uri){
     const type = await getMediaType(md.image)
     return({md, type})
 }
+
+export function removeDuplicates(arr) {
+    const unique = new Map();
+
+    for (const obj of arr) {
+        // Convert object properties and values to a string that can be used as a unique key
+        const key = JSON.stringify(obj, Object.keys(obj).sort());
+        unique.set(key, obj);
+    }
+
+    // Return only the unique values
+    return Array.from(unique.values());
+}

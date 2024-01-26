@@ -17,9 +17,9 @@ function Navbar() {
   return (
     <nav className="bg-white border-gray-200 px-4 py-2 dark:bg-gray-900">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
-        <a className="flex items-center text-gray-600 dark:text-white">
+        <a href="/" className="flex items-center text-gray-600 dark:text-white cursor-pointer">
         <img className="flex items-center text-gray-600 dark:text-white h-8" src="/logo.svg"  alt="Linagee Logo" />
-          <span className="self-center text-xl text-gray-600 font-semibold whitespace-nowrap dark:text-white">Linagee</span>
+          <span className="self-center text-xl text-gray-600 font-semibold whitespace-nowrap dark:text-white mr-4">Linagee</span>
         </a>
         <div className="flex items-center">
           {/* Search input */}

@@ -38,7 +38,7 @@ function ImageCardV2({props, key}){
         // Set a timeout for 30 seconds
         const timeoutId = setTimeout(() => {
           setHasError(true);
-        }, 30000);
+        }, 60000);
     
         return () => clearTimeout(timeoutId);
       };
@@ -60,7 +60,7 @@ function ImageCardV2({props, key}){
                     <div className={`flex flex-col ${loading ? "animated-pulse" : ""}`}>
                 <div className={"flex w-[16em] min-w-[10em] h-[16em] max-h-[16em] items-center p-5"}>
             <Suspense >
-                    {hasError && loading && <FaImage className="w-50 h-50 m-auto" />}
+                    {/* {hasError && !loading && <FaImage className="w-100 h-100 dark:text-white text-gray-700 m-auto relative" />} */}
                     {!loading && !hasError && metadata.md.image && metadata.type === 'image'|| 'gif' && (
                         <div className="relative hover:scale-105 ease-in duration-200 cursor-pointer"  onClick={()=>setIsDrawerOpen(!isDrawerOpen)}>
                             <img className={`${commonClasses} ${ambientClasses}`} src={metadata?.md?.image} alt="" />
@@ -84,7 +84,7 @@ function ImageCardV2({props, key}){
             leave="transition ease-in duration-300 transform "
             leaveFrom="translate-y-0 opacity-100"
             leaveTo="translate-y-full opacity-0"
-            className={`z-50 bg-black opacity-90 dark:bg-black dark:opacity-90 m-2  absolute static rounded-md top-0 left-0 right-0 bottom-10 w-auto h-auto items-center justify-center overflow-x-hidden overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-thumb-gray-400 cursor-pointer`}
+            className={`z-50 bg-gray-800 opacity-90 dark:bg-black dark:opacity-80 m-2  absolute static rounded-md top-0 left-0 right-0 bottom-10 w-auto h-auto items-center justify-center overflow-x-hidden overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-thumb-gray-400 cursor-pointer`}
             onClick={()=>setIsDrawerOpen(!isDrawerOpen)}
           >
               {(metadata?.md?.attributes || props?.address) ? <AttributeGallery address={props?.address}  attributes={metadata?.md?.attributes}/> : <h3>Nothing to show ...</h3>}

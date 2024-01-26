@@ -1,6 +1,5 @@
 "use client"
 
-import ImageCard from '@/components/ImageCard'
 import ImageCardV2 from '@/components/ImageCardV2'
 
 

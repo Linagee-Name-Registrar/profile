@@ -13,19 +13,19 @@ function Footer(){
             </a>
             <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">About</a>
+                    <a href="https://github.com/Linagee-Name-Registrar/profile" target="_blank" className="hover:underline me-4 md:me-6">About</a>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">Website</a>
+                    <a href="https://linagee.vision" target="_blank" className="hover:underline me-4 md:me-6">Website</a>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">Github</a>
+                    <a href="https://github.com/Linagee-Name-Registrar" target="_blank" className="hover:underline me-4 md:me-6">Github</a>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">Twitter</a>
+                    <a href="https://twitter.com/linageedomains" target="_blank" className="hover:underline me-4 md:me-6">Twitter</a>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">Discord</a>
+                    <a href="discord.gg/linagee" target="_blank" className="hover:underline me-4 md:me-6">Discord</a>
                 </li>
             </ul>
         </div>

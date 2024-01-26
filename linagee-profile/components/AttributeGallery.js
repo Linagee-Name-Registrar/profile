@@ -10,7 +10,7 @@ function AttributeGallery({attributes, address}){
 {address && (
     <>
     <h5 className="m-2 mb-0 text-sm text-gray-400 dark:text-gray-400 ">Contract</h5>
-    <h5 className="mx-2 mb-0 text-xs text-gray-400 font-bold dark:text-gray-400 ">{address}</h5>
+    <h5 className="mx-2 mb-0 text-xs text-gray-400 font-bold dark:text-gray-400 break-all">{address}</h5>
     </>
 )}
 {attributes && attributes.length > 0 && ( 
